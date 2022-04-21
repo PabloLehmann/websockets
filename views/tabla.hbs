@@ -1,0 +1,24 @@
+{{#if productos}}
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Imagen</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each productos}}
+        <tr>
+        <td>{{titulo}}</td>
+        <td>{{precio}}</td>
+        <td><img src ="{{thumbnail}}" alt="{{titulo}}" width="100" > </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<h1>No hay productos</h1>
+{{/if}}
+       <a href="http://localhost:8080/"> <button>Redirigir</button></a>
