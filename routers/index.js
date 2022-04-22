@@ -1,6 +1,6 @@
 const express = require ("express")
 const {Router} = express
-const {productos, guardarProducto} = require ("../controllers/container.js")
+const {productos, guardarProducto} = require ("../controllers/container")
 
 const routerProductos = Router();
 

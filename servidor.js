@@ -2,7 +2,8 @@ const express = require('express');
 const { Server: IOServer } = require ("socket.io")
 const { Server: HttpServer } = require ("http")
 
-const routerProductos = require('../routers/index.js')
+const routerProductos = require("./routers/index")
+
 
 const app = express();
 const httpServer = new HttpServer (app)
@@ -16,8 +17,8 @@ app.engine(
     handlebars.engine({
         extname: '.hbs',
         defaultLayout: 'index.hbs',
-        layoutsDir: __dirname + '/views/layouts',
-        partialsDir: __dirname + '/views/partials'
+        layoutsDir: __dirname + '/public/views/layouts',
+        partialsDir: __dirname + '/public/views/partials'
     })        
 )
     
@@ -58,15 +59,15 @@ const dataMensaje = [
         texto:"Hola"
     }
 ]
-
+console.log(dataMensaje);
 io.on ("connection", (socket) =>{
     console.log("Usuario conectado");
-    socket.emit("mi mensaje", dataMensaje)
+    socket.emit("mensaje", dataMensaje)
 
 
-socket.on("new-message", (data) =>{
-    dataMensaje.push(data)
-    io.sockets.emit("mi mensaje", dataMensaje)
+    socket.on("new-message", (data) =>{
+        dataMensaje.push(data)
+        io.sockets.emit("mensaje", dataMensaje)
 
     })
 })
