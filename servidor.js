@@ -1,8 +1,10 @@
 const express = require('express');
-const { Server: IOServer } = require ("socket.io")
-const { Server: HttpServer } = require ("http")
-
 const routerProductos = require("./routers/index")
+const{ productos, guardarProducto} = require ("./controllers/container")
+
+const { Server: HttpServer } = require ("http")
+const { Server: IOServer } = require ("socket.io")
+
 
 
 const app = express();
@@ -48,26 +50,33 @@ httpServer.listen(PORT, () => {
 const dataMensaje = [
     {
         autor:"Alejandra",
-        texto: "Hola"
+        texto: "Hola",
+        date: "Wed Apr 20 2022 18:22:41 GMT-0300 (hora estándar de Argentina)"
     },
     {
         autor: "Veronica",
-        texto: "Hola"
+        texto: "Hola",
+        date: "Wed Apr 20 2022 18:22:41 GMT-0300 (hora estándar de Argentina)"
     },
     {
         autor: "Franco",
-        texto:"Hola"
+        texto:"Hola",
+        date: "Wed Apr 20 2022 18:22:41 GMT-0300 (hora estándar de Argentina)"
     }
 ]
 console.log(dataMensaje);
 io.on ("connection", (socket) =>{
     console.log("Usuario conectado");
+    
     socket.emit("mensaje", dataMensaje)
-
-
     socket.on("new-message", (data) =>{
         dataMensaje.push(data)
         io.sockets.emit("mensaje", dataMensaje)
 
+    })
+    socket.emit("productos", productos())
+    socket.on("new-producto", (producto)=>{
+        guardarProducto(producto)
+        io.sockets.emit("productos", productos())
     })
 })

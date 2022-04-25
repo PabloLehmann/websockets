@@ -27,7 +27,7 @@ const productos = ()=>{
     let lastIndex = producto.length - 1
     let lastId = producto[lastIndex].id
     let newId = parseInt(lastId) + 1
-    const newProduct = { ...productoNuevo, id: newId }
+    const newProduct = { ...productoNuevo, id: newId.toString() }
     producto.push(newProduct)
     return producto
 }
